@@ -1,7 +1,5 @@
 <div align="center">
 
-<img src="docs/images/hero.png" alt="Starred sessions in the DeepSeek Harness sidebar" width="100%" />
-
 <h1>会话星标 · Session Stars</h1>
 
 <p><b>给 DeepSeek Harness 的会话列表加一颗星：把正在跟的任务标住，左上角点一下全部看到。</b></p>
@@ -52,28 +50,26 @@ Plugin Manager → 安装 bundle → file:/abs/path/to/dsh-session-stars
 
 ## 功能
 
-### ① 行内星标 · 常驻小星
+### ① 会话行上的星标
 
-<p align="center"><img src="docs/images/row-star.png" width="564" alt="会话行：时间后的常驻小星，以及行尾的星标按钮" /></p>
+一行里有两个东西，分工不同：
 
-一行里有两个标记，互不冲突：
+| 位置 | 样子 | 行为 |
+| --- | --- | --- |
+| 时间标签后面 | 一颗小的实心星 | **一直显示**，不悬停也在；点一下直接取消星标 |
+| 行尾按钮排（`…` `归档` `★` `置顶`） | 24×24 图标按钮 | 悬停才出现；空心=未标，实心品牌色=已标 |
 
-- **时间后面**那颗实心小星是"已标星"的常驻标记，不悬停也看得见；
-- **行尾** `…` `归档` `★` `置顶` 里的那颗是按钮：空心=未标，实心品牌色=已标。
+标星后鼠标移开，时间后面那颗星仍然留着——所以"哪些会话标过"不用悬停去猜，取消也不用先找回悬停按钮。
 
-按钮 24×24、透明底、悬停才出现，和旁边两个按钮同一套视觉；点一下立即生效（乐观更新），失败会回滚。
+按钮用主题 token 上色（`--dsw-alias-brand-primary` / `--dsw-alias-label-secondary`），深浅色主题都跟着走；点一下立即生效（乐观更新），请求失败会回滚。
 
 ### ② 左上角入口
-
-<p align="center"><img src="docs/images/sidebar-entry.png" width="316" alt="侧栏面板入口里的「星标」" /></p>
 
 侧栏面板入口新增「星标」，位置在「插件」和「全局搜索」之间——图标、字号、行高都跟邻居一致，不引入第二种视觉语言。
 
 ### ③ 星标页
 
-<p align="center"><img src="docs/images/panel.png" width="100%" alt="星标页：按工作区分组列出已标星的会话" /></p>
-
-按工作区分组，每条给三件事：会话标题、加星时间、工作区路径。
+点开是按工作区分组的列表，每条给三件事：会话标题、加星时间、工作区路径。
 
 - 标题读会话日志里的**最新**标题，改名后不会一直显示旧名字；
 - 会话已被清掉的标一枚「会话不可用」——星标不会替你假装它还在；
@@ -81,13 +77,13 @@ Plugin Manager → 安装 bundle → file:/abs/path/to/dsh-session-stars
 
 ### ④ 触屏 / 键盘可达
 
-会话的「…」菜单里也有「加星标 / 取消星标」。悬停按钮在无悬停设备上会被隐藏，菜单是那条路。
+会话的「…」菜单里也有「加星标 / 取消星标」。悬停按钮在无悬停设备上会被隐藏，菜单是那条路；列表里的按钮都是真 `<button>`，带 `aria-pressed` 和焦点环。
 
 ## 使用
 
 1. 鼠标移到左侧任意会话行 → 点行尾的 **星标**
 2. 左侧栏点 **星标** → 看所有已标星的会话
-3. 不想标了：列表里点「取消星标」，或回到会话行再点一次
+3. 不想标了：点时间后面那颗常驻星，或在列表里点「取消星标」
 
 ## 安装
 
@@ -124,8 +120,8 @@ Plugin Manager → 安装 bundle → file:/abs/path/to/dsh-session-stars
   "items": [
     {
       "sessionId": "session-dd6399c4-…",
-      "title": "DSH 主程序升级兼容性检查",
-      "cwd": "C:/Users/…/default-workspace",
+      "title": "…",
+      "cwd": "…",
       "starredAt": "2026-11-19T06:28:03.555Z"
     }
   ]
@@ -150,6 +146,9 @@ Plugin Manager → 安装 bundle → file:/abs/path/to/dsh-session-stars
 **为什么数据在 Host 而不是 localStorage**
 星标是"用户的清单"，不是某个标签页的视图状态。放 Host 才能在换浏览器、开第二个窗口时保持一致；客户端只持有一份内存缓存，永远不写自己的副本。
 
+**为什么常驻星是可点的按钮**
+行尾那排按钮靠 `:hover` 显示，鼠标一离开，刚标过的那颗星就跟着消失——"标了却看不见"比"没标"更让人不放心。所以时间后面那颗星常驻，并且能直接点掉。
+
 **为什么路由是 `handler` 而不是 `resource`**
 DSH 的 `resource` 路由只接 GET/HEAD——POST 会在到达处理函数之前被 405 挡掉。要写，就得用 `handler` 自己拿 `IncomingMessage` / `ServerResponse`。
 
@@ -164,7 +163,7 @@ DSH 的 `resource` 路由只接 GET/HEAD——POST 会在到达处理函数之�
 | 插槽 | 作用 |
 | --- | --- |
 | `sidebar.workspaces.session.row.action` | 行尾星标按钮（`order: 150`，夹在「归档」100 与「置顶」200 之间） |
-| `sidebar.session.row.trailing` | 已标星的小星标记（非交互） |
+| `sidebar.session.row.trailing` | 已标星的常驻可点击星（`order: 10`） |
 | `sidebar.workspaces.session.menu.item` | 「…」菜单里的同名条目（`order: 380`） |
 | `sidebar.panellist` + `main` | 「星标」入口与整页列表（`main` 的 key 与入口 id 相同：`session-stars`） |
 
@@ -207,7 +206,8 @@ CI 在 Node 20 / 22 上跑语法检查、单测和 `npm pack --dry-run`。
 
 **Session Stars** adds a star to every session row in the [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) sidebar and collects the starred sessions in one panel.
 
-- Hover a session row → press the star next to *archive* / *pin*. A starred row keeps a small star after its timestamp, so you can see the marks without hovering.
+- Hover a session row → press the star next to *archive* / *pin*.
+- A starred row keeps a small clickable star after its timestamp, so the mark stays visible after the pointer leaves the row and can be removed without hunting for the hover strip.
 - The same toggle sits in the row's `…` menu, which is the path on touch and hoverless devices.
 - The **Starred** entry in the left sidebar opens a list grouped by workspace: title, starred time, workspace path, and an *unavailable* badge when the session no longer exists.
 - Stars live in `$DSH_HOME/session-stars/stars.json` (atomic writes; a corrupt file is parked aside instead of taking the panel down). The panel refreshes titles and existence from the live session query and degrades to the stored snapshot when those services are absent.

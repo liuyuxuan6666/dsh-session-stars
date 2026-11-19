@@ -256,11 +256,25 @@ window.__ModuleLoader__.load({
     function RowStarMark(props) {
       const state = useStore()
       if (!props.sessionId || !state.ids.has(props.sessionId)) return null
-      const label = translate('starred')
+      const label = translate('unstar')
+      // A starred row keeps this star on screen without hover, and it toggles:
+      // the hover strip hides as soon as the pointer leaves the row, so this is
+      // the one affordance that stays visible (and clickable) after starring.
       return h(
-        'span',
-        { className: 'dss-row-mark', title: label, 'aria-label': label, role: 'img' },
-        h(StarGlyph, { size: 12, filled: true }),
+        'button',
+        {
+          type: 'button',
+          className: 'dss-row-mark',
+          title: label,
+          'aria-label': label,
+          'aria-pressed': true,
+          onClick: (event) => {
+            event.preventDefault()
+            event.stopPropagation()
+            Promise.resolve(toggle(props.sessionId, props.displayTitle))
+          },
+        },
+        h(StarGlyph, { size: 13, filled: true }),
       )
     }
 
@@ -430,8 +444,11 @@ window.__ModuleLoader__.load({
       '.dss-row-star:hover{opacity:1;background:var(--dsw-alias-interactive-bg-hover,rgba(128,128,128,.16))}',
       '.dss-row-star.dss-on{color:var(--dsw-alias-brand-primary,#2f6fe0);opacity:1}',
       '.dss-row-star:disabled{opacity:.4;cursor:default}',
-      '.dss-row-mark{display:inline-flex;align-items:center;margin-left:2px;',
-      'color:var(--dsw-alias-brand-primary,#2f6fe0)}',
+      '.dss-row-mark{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;',
+      'padding:0;border:none;border-radius:5px;background:transparent;margin-left:2px;cursor:pointer;',
+      'color:var(--dsw-alias-brand-primary,#2f6fe0);opacity:.95}',
+      '.dss-row-mark:hover{opacity:1;background:var(--dsw-alias-interactive-bg-hover,rgba(128,128,128,.16))}',
+      '.dss-row-mark:focus-visible{outline:2px solid var(--dsw-alias-brand-primary,#2f6fe0);outline-offset:1px}',
       '.dss-menu-star{display:flex;align-items:center;width:100%;border:none;background:transparent;color:inherit;',
       'font:inherit;font-size:13px;line-height:1.4;padding:6px 10px;border-radius:6px;cursor:pointer;text-align:left}',
       '.dss-menu-star:hover{background:var(--dsw-alias-interactive-bg-hover,rgba(128,128,128,.16))}',

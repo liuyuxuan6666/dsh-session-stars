@@ -1,6 +1,6 @@
 {
   "name": "dsh-session-stars",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Star sessions from the DSH sidebar and collect them in one panel. 在 DSH 左侧会话行加星标，并在左上角「星标」入口集中列出。",
   "type": "module",
   "license": "MIT",
