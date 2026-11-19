@@ -1,0 +1,68 @@
+{
+  "name": "dsh-session-stars",
+  "version": "0.1.0",
+  "description": "Star sessions from the DSH sidebar and collect them in one panel. 在 DSH 左侧会话行加星标，并在左上角「星标」入口集中列出。",
+  "type": "module",
+  "license": "MIT",
+  "author": "lyx6666 <1098659745@qq.com> (https://github.com/liuyuxuan6666)",
+  "main": "./index.js",
+  "icon": "./icon.svg",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/liuyuxuan6666/dsh-session-stars.git"
+  },
+  "homepage": "https://github.com/liuyuxuan6666/dsh-session-stars#readme",
+  "bugs": {
+    "url": "https://github.com/liuyuxuan6666/dsh-session-stars/issues"
+  },
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "session",
+    "star",
+    "favorite",
+    "sidebar",
+    "bookmark"
+  ],
+  "engines": {
+    "node": ">=20",
+    "dsh": ">=0.2.0-rc.2"
+  },
+  "exports": {
+    ".": "./index.js",
+    "./client": "./client.js",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "index.js",
+    "client.js",
+    "lib",
+    "cordis.patch.yml",
+    "locale/*.json",
+    "docs",
+    "icon.svg",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "check": "node --check index.js && node --check client.js && node --check lib/store.js",
+    "test": "node --test test/*.test.mjs"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "immediately": true,
+      "inject": []
+    },
+    "compatibility": {
+      "dsh": ">=0.2.0-rc.2"
+    },
+    "manifestVersion": 1
+  }
+}

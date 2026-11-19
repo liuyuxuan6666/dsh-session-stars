@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Session stars">
+  <defs>
+    <linearGradient id="dssBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#3b82f6"/>
+      <stop offset="1" stop-color="#1d4ed8"/>
+    </linearGradient>
+  </defs>
+  <rect x="2" y="2" width="60" height="60" rx="15" fill="url(#dssBg)"/>
+  <path d="M32 13.5l5.6 11.35 12.53 1.82-9.07 8.84 2.14 12.48L32 42.11l-11.2 5.88 2.14-12.48-9.07-8.84 12.53-1.82z"
+        fill="#ffffff" stroke="#e8efff" stroke-width="1.6" stroke-linejoin="round"/>
+</svg>

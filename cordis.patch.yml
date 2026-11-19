@@ -1,0 +1,5 @@
+# Layer contributed when a profile lists this bundle.
+- insert:
+    - id: session-stars
+      name: dsh-session-stars
+      config: {}

@@ -1,0 +1,7 @@
+{
+  "meta": {
+    "title": "会话星标",
+    "description": "在左侧会话行右侧加星标按钮，并在左上角「星标」入口集中列出所有已标星的会话。",
+    "detail": "docs/DETAIL.md"
+  }
+}

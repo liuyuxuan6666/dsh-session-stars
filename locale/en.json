@@ -1,0 +1,7 @@
+{
+  "meta": {
+    "title": "Session stars",
+    "description": "Adds a star button to every sidebar session row and lists the starred sessions under a Starred panel entry.",
+    "detail": "docs/DETAIL.md"
+  }
+}
