@@ -54,7 +54,7 @@ Plugin Manager → 安装 bundle → file:/abs/path/to/dsh-session-stars
 
 ### ① 行内星标 · 常驻小星
 
-<p align="center"><img src="docs/images/row-star.png" width="600" alt="会话行：时间后的常驻小星，以及行尾的星标按钮" /></p>
+<p align="center"><img src="docs/images/row-star.png" width="564" alt="会话行：时间后的常驻小星，以及行尾的星标按钮" /></p>
 
 一行里有两个标记，互不冲突：
 
@@ -65,7 +65,7 @@ Plugin Manager → 安装 bundle → file:/abs/path/to/dsh-session-stars
 
 ### ② 左上角入口
 
-<p align="center"><img src="docs/images/sidebar-entry.png" width="340" alt="侧栏面板入口里的「星标」" /></p>
+<p align="center"><img src="docs/images/sidebar-entry.png" width="316" alt="侧栏面板入口里的「星标」" /></p>
 
 侧栏面板入口新增「星标」，位置在「插件」和「全局搜索」之间——图标、字号、行高都跟邻居一致，不引入第二种视觉语言。
 
